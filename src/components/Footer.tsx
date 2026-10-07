@@ -66,7 +66,23 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-[#181D23] flex flex-col sm:flex-row items-center justify-between text-xs text-[#6C7480] gap-4">
+        {/* Bloco de Créditos & Concepção */}
+        <div className="py-6 border-t border-[#181D23] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-[#A8AFB8]">
+            <span className="font-medium text-[#F4F5F7]">
+              Engenharia & Arquitetura de Software: <span className="text-[#F5B942]">Willian Albarello</span>
+            </span>
+            <span className="hidden sm:inline text-[#6C7480]">•</span>
+            <span className="text-[#A8AFB8] italic">
+              Concebido em honra ao meu primo, cuja provocação inicial gerou a criação desta plataforma.
+            </span>
+          </div>
+          <div className="text-[11px] font-mono text-[#6C7480]">
+            Transparência cívica com propósito
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-[#181D23] flex flex-col sm:flex-row items-center justify-between text-xs text-[#6C7480] gap-4">
           <p>© 2026 Fora da Curva. Dados abertos de domínio público para fins de transparência e pesquisa.</p>
           <div className="flex items-center space-x-4">
             <span className="inline-flex items-center gap-1">

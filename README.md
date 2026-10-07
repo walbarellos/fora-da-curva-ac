@@ -73,3 +73,11 @@ Abra [http://localhost:3000](http://localhost:3000) no navegador.
 ## ⚖️ Licença e Metodologia
 
 Consulte a página [`/metodologia`](./docs/04-metodologia-dados.md) para detalhes sobre as regras de coleta, agregações e fórmulas de equivalência social. Dados públicos coletados sob a égide da **Lei de Acesso à Informação (Lei nº 12.527/2011)**.
+
+---
+
+## 👥 Créditos & Concepção
+
+- **Engenharia & Arquitetura de Software:** **Willian Albarello**
+- **Inspiração e Concepção Original:** Dedicatória e honra ao **meu primo**, cujo olhar atento e reflexão sobre essas distorções trouxeram a centelha inicial para transformar essa discussão em uma plataforma pública, aberta e rigorosa.
+

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, Scale, HelpCircle, Layers, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { ArrowLeft, BookOpen, Scale, HelpCircle, Layers, CheckCircle2, ShieldAlert, UserCheck } from 'lucide-react';
 
 export const metadata = {
   title: 'Metodologia e Critérios Técnicos — Fora da Curva',
@@ -112,6 +112,35 @@ export default function MetodologiaPage() {
           <p>
             Caso um tribunal retifique uma folha de pagamento posteriormente, nossos pipelines incorporam a versão atualizada na extração seguinte, mantendo um histórico auditável do arquivo original.
           </p>
+        </div>
+      </section>
+
+      {/* 5. Autoria & Concepção do Projeto */}
+      <section className="space-y-4 pt-6 border-t border-[#181D23]">
+        <h2 className="text-xl font-bold text-[#F4F5F7] flex items-center gap-2">
+          <UserCheck className="w-5 h-5 text-[#F5B942]" />
+          5. Concepção & Engenharia
+        </h2>
+        <div className="p-6 rounded-xl bg-[#11151A] border border-[#1B2129] space-y-4">
+          <div className="space-y-1">
+            <h3 className="text-base font-bold text-[#F4F5F7]">
+              Willian Albarello
+            </h3>
+            <p className="text-xs font-mono text-[#F5B942]">
+              Engenharia & Arquitetura de Software
+            </p>
+          </div>
+          <p className="text-sm text-[#A8AFB8] leading-relaxed">
+            Plataforma idealizada e desenvolvida com foco em inteligência cívica, rigor metodológico e visualização acessível de dados públicos.
+          </p>
+          <div className="p-4 rounded-lg bg-[#181D23] border border-[#232B35] text-xs text-[#A8AFB8] space-y-1">
+            <span className="font-semibold text-[#F4F5F7] block">
+              Dedicatória e Reconhecimento Especial
+            </span>
+            <p className="leading-relaxed">
+              O projeto nasceu a partir de um diálogo direto com meu primo, que compartilhou o caso das disparidades nas folhas salariais e apontou a ausência de um instrumento que explicasse a realidade por trás dos números. A ele, minha gratidão e honra pela centelha que originou o <strong>Fora da Curva</strong>.
+            </p>
+          </div>
         </div>
       </section>
     </div>
