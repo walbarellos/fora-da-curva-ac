@@ -21,8 +21,9 @@ export default function ComparadorEscala({
   const anosNecessarios = (valorPagamento / (rendaReferencia * 12)).toFixed(1);
 
   const presets = [
+    { label: 'Salário Mínimo Vigente', valor: 1412 },
+    { label: 'Salário Mínimo 2026 (PLDO)', valor: 1621 },
     { label: 'Renda Média Acre (IBGE)', valor: 2450 },
-    { label: 'Salário Mínimo (2026 - PLDO)', valor: 1621 },
     { label: 'Renda Média Brasil (IBGE)', valor: 3200 },
     { label: 'Teto Constitucional STF', valor: 44008 },
   ];
@@ -54,13 +55,23 @@ export default function ComparadorEscala({
       </div>
 
       {/* Seletor de renda */}
-      <div className="space-y-3">
-        <label className="text-xs font-medium text-[var(--text-medium)] flex items-center justify-between">
-          <span>Selecione ou ajuste a renda mensal de comparação:</span>
-          <span className="text-sm font-bold text-[var(--text-high)] font-mono tabular-nums">
-            {formatCurrency(rendaReferencia)}/mês
-          </span>
-        </label>
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <label className="text-xs font-medium text-[var(--text-medium)]">
+            Selecione uma referência ou digite o valor mensal desejado:
+          </label>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-[var(--text-muted)]">R$</span>
+            <input
+              type="number"
+              value={rendaReferencia}
+              onChange={(e) => setRendaReferencia(Math.max(1, Number(e.target.value)))}
+              className="w-28 px-2.5 py-1 text-sm font-bold text-[var(--text-high)] font-mono tabular-nums bg-[var(--bg-subtle)] border border-[var(--border-subtle)] rounded-lg focus:outline-none focus:border-[var(--accent)]"
+              aria-label="Digitar renda mensal"
+            />
+            <span className="text-xs font-mono text-[var(--text-muted)]">/mês</span>
+          </div>
+        </div>
 
         <div className="flex flex-wrap gap-2">
           {presets.map((preset) => (
@@ -74,20 +85,20 @@ export default function ComparadorEscala({
                   : 'bg-[var(--bg-subtle)] border-[var(--border-subtle)] text-[var(--text-medium)] hover:text-[var(--text-high)] hover:border-[var(--border-strong)]'
               }`}
             >
-              {preset.label} ({formatCurrency(preset.valor)})
+              {preset.label}: <strong>{formatCurrency(preset.valor)}</strong>
             </button>
           ))}
         </div>
 
         <input
           type="range"
-          min="1412"
+          min="500"
           max="50000"
-          step="200"
+          step="50"
           value={rendaReferencia}
           onChange={(e) => setRendaReferencia(Number(e.target.value))}
           className="w-full accent-[var(--accent)] bg-[var(--bg-subtle)] h-2 rounded-lg cursor-pointer mt-2"
-          aria-label="Ajustar renda de referência"
+          aria-label="Ajustar renda de referência no controle deslizante"
         />
       </div>
 
