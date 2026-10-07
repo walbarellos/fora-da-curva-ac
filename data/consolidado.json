@@ -16599,5 +16599,345 @@
         "total": 13896.37
       }
     ]
-  }
+  },
+  "rankingUnificadoAcima500k": [
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 5514721.66
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 3247417.76
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 3202837.35
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 2409444.57
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 2266754.59
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 2252173.1
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1899403.48
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1851276.95
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1538378.6
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1439997.03
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1430442.59
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1288055.17
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1286624.57
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1258615.34
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1258006.6
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1211869.9
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1205634.7
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 1171521.93
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJAC",
+      "cargo": "Desembargador",
+      "valor": 1024381.72
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 970066.06
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 954724.43
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "MPAC",
+      "cargo": "Procurador de Justiça",
+      "valor": 893442.15
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJSP",
+      "cargo": "Desembargador",
+      "valor": 847321.45
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TCE-AC",
+      "cargo": "Conselheiro do Tribunal de Contas",
+      "valor": 761221.8
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJAC",
+      "cargo": "Juiz de Direito (Entrância Final)",
+      "valor": 712950.6
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "ALEAC",
+      "cargo": "Procurador de Justiça",
+      "valor": 693164.33
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "MPF",
+      "cargo": "Procurador de Justiça",
+      "valor": 684838.37
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "SEFAZ-AC",
+      "cargo": "Procurador do Estado (Nível Superior)",
+      "valor": 678357.33
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "MPAC",
+      "cargo": "Juiz Federal Substituto",
+      "valor": 671509.97
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 664245.72
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TCE-AC",
+      "cargo": "Juiz de Direito (Entrância Final)",
+      "valor": 663675.38
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJRS",
+      "cargo": "Procurador do Estado (Nível Superior)",
+      "valor": 657121.67
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TCU",
+      "cargo": "Promotor de Justiça (Entrância Final)",
+      "valor": 650380.46
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TRT14",
+      "cargo": "Procurador de Justiça",
+      "valor": 642522.15
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "SEFAZ-AC",
+      "cargo": "Desembargador",
+      "valor": 636209.94
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "SEFAZ-AC",
+      "cargo": "Procurador de Justiça",
+      "valor": 628261.83
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJPA",
+      "cargo": "Promotor de Justiça (Entrância Final)",
+      "valor": 621984.56
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "MPF",
+      "cargo": "Juiz Federal Substituto",
+      "valor": 615075.69
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJGO",
+      "cargo": "Procurador do Estado (Nível Superior)",
+      "valor": 608123.06
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJAC",
+      "cargo": "Conselheiro do Tribunal de Contas",
+      "valor": 602783.86
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJMG",
+      "cargo": "Procurador de Justiça",
+      "valor": 594402.31
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJRO",
+      "cargo": "Promotor de Justiça (Entrância Final)",
+      "valor": 588576.98
+    },
+    {
+      "tipo": "Serventia extrajudicial",
+      "orgao": "TJAC",
+      "cargo": "Agente Notarial/Registral",
+      "valor": 581880.45
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "SEFAZ-AC",
+      "cargo": "Conselheiro do Tribunal de Contas",
+      "valor": 581279.7
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJPA",
+      "cargo": "Conselheiro do Tribunal de Contas",
+      "valor": 574010.5
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJRJ",
+      "cargo": "Auditor Fiscal da Receita Estadual",
+      "valor": 569649.35
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJRJ",
+      "cargo": "Procurador de Justiça",
+      "valor": 561230.93
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJMG",
+      "cargo": "Procurador do Estado (Nível Superior)",
+      "valor": 554255.07
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TCU",
+      "cargo": "Procurador do Estado (Nível Superior)",
+      "valor": 550067.02
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "SEFAZ-AC",
+      "cargo": "Conselheiro do Tribunal de Contas",
+      "valor": 542966.12
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "PGE-AC",
+      "cargo": "Promotor de Justiça (Entrância Final)",
+      "valor": 535607.05
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJMG",
+      "cargo": "Desembargador",
+      "valor": 529170.9
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TJAC",
+      "cargo": "Promotor de Justiça (Entrância Final)",
+      "valor": 524324.23
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TRT14",
+      "cargo": "Auditor Fiscal da Receita Estadual",
+      "valor": 515376.54
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TRT14",
+      "cargo": "Procurador do Estado (Nível Superior)",
+      "valor": 510202.85
+    },
+    {
+      "tipo": "Folha pública",
+      "orgao": "TCE-AC",
+      "cargo": "Juiz Federal Substituto",
+      "valor": 504906.01
+    }
+  ],
+  "totalFolhaAcima500k": 21529351.88,
+  "totalServentiasAcima500k": 38904092.55
 }
