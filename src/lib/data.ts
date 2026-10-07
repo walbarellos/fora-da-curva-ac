@@ -1,4 +1,5 @@
 import seedData from '../../data/seed-top100.json';
+import consolidado from '../../data/consolidado.json';
 import { PagamentoRegistro, EstatisticasGerais } from '../../data/schema';
 
 export function getEstatisticas(): EstatisticasGerais {
@@ -7,6 +8,16 @@ export function getEstatisticas(): EstatisticasGerais {
 
 export function getAllPagamentos(): PagamentoRegistro[] {
   return seedData.registros as PagamentoRegistro[];
+}
+
+export function getServentias() {
+  return (consolidado as any).serventiasExtrajudiciais;
+}
+
+export function getRankingUnificado() {
+  return (consolidado as any).rankingUnificadoAcima500k as Array<{
+    tipo: string; orgao: string; cargo: string; valor: number;
+  }>;
 }
 
 export function getPagamentoById(id: string): PagamentoRegistro | undefined {

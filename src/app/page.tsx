@@ -126,6 +126,25 @@ export default function HomePage() {
         />
       </section>
 
+      {/* 3B. CARTÓRIOS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="card-elevated p-7 sm:p-9 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-xl">
+            <span className="font-label text-[var(--status-regular)]">Emolumentos · Serventias TJAC</span>
+            <h3 className="text-xl font-bold text-[var(--text-high)] tracking-tight">
+              Os cartórios do Acre já faturaram R$ 40,5 mi em 2026
+            </h3>
+            <p className="text-sm text-[var(--text-medium)]">
+              Arrecadação anual das serventias extrajudiciais — quase o dobro da folha pública anômala analisada.
+            </p>
+          </div>
+          <Link href="/cartorios" className="btn-secondary shrink-0">
+            <span>Ver Serventias</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
       {/* 4. TOP 5 */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-end justify-between gap-4">

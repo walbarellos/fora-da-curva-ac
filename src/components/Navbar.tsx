@@ -28,6 +28,12 @@ export default function Navbar() {
               Ranking dos Maiores
             </Link>
             <Link
+              href="/cartorios"
+              className="px-3 py-1.5 text-sm font-medium text-[var(--text-medium)] hover:text-[var(--text-high)] hover:bg-[var(--bg-card)] rounded-md transition-colors duration-150"
+            >
+              Cartórios
+            </Link>
+            <Link
               href="/metodologia"
               className="px-3 py-1.5 text-sm font-medium text-[var(--text-medium)] hover:text-[var(--text-high)] hover:bg-[var(--bg-card)] rounded-md transition-colors duration-150"
             >
