@@ -16464,5 +16464,140 @@
         "documentoTipo": "Folha de Pagamento Individualizada (Portais de Transparência Oficiais)"
       }
     }
-  ]
+  ],
+  "serventiasExtrajudiciais": {
+    "fonte": "TJAC/GEFEX – Arrecadação das Serventias Extrajudiciais (Emolumentos), Exercício 2026 (jan–ago)",
+    "url": "https://www.tjac.jus.br/wp-content/uploads/2026/09/Arrecadao-das-Serventias-Extrajudiciais-08.26.pdf",
+    "ano": 2026,
+    "qtdServentias": 31,
+    "totalArrecadado": 40523934.59,
+    "serventiasAcima500k": 22,
+    "totalAcima500k": 38904092.55,
+    "ranking": [
+      {
+        "serventia": "RBR - 2º REGISTRO DE IMÓVEIS",
+        "total": 5514721.66
+      },
+      {
+        "serventia": "SENADOR GUIOMARD",
+        "total": 3247417.76
+      },
+      {
+        "serventia": "RBR - 1º REGISTRO DE IMÓVEIS",
+        "total": 3202837.35
+      },
+      {
+        "serventia": "RBR - 1º TABELIONATO DE NOTAS E 1º RCPN",
+        "total": 2409444.57
+      },
+      {
+        "serventia": "SENA MADUREIRA",
+        "total": 2266754.59
+      },
+      {
+        "serventia": "ACRELÂNDIA",
+        "total": 2252173.1
+      },
+      {
+        "serventia": "RBR - 3º TABELIONATO DE NOTAS E 3º RCPN",
+        "total": 1899403.48
+      },
+      {
+        "serventia": "BRASILÉIA",
+        "total": 1851276.95
+      },
+      {
+        "serventia": "TARAUACÁ",
+        "total": 1538378.6
+      },
+      {
+        "serventia": "RBR - 2º TABELIONATO DE NOTAS E 2º RCPN",
+        "total": 1439997.03
+      },
+      {
+        "serventia": "EPITACIOLÂNDIA",
+        "total": 1430442.59
+      },
+      {
+        "serventia": "FEIJÓ",
+        "total": 1288055.17
+      },
+      {
+        "serventia": "PLÁCIDO DE CASTRO",
+        "total": 1286624.57
+      },
+      {
+        "serventia": "CZS - REGISTRO DE IMÓVEIS E TDPJ",
+        "total": 1258615.34
+      },
+      {
+        "serventia": "TÍTULOS",
+        "total": 1258006.6
+      },
+      {
+        "serventia": "TÍTULOS",
+        "total": 1211869.9
+      },
+      {
+        "serventia": "PORTO ACRE",
+        "total": 1205634.7
+      },
+      {
+        "serventia": "CZS - TABELIONATO DE NOTAS E RCPN",
+        "total": 1171521.93
+      },
+      {
+        "serventia": "BUJARI",
+        "total": 970066.06
+      },
+      {
+        "serventia": "XAPURI",
+        "total": 954724.43
+      },
+      {
+        "serventia": "PJ",
+        "total": 664245.72
+      },
+      {
+        "serventia": "CZS - TABELIONATO DE PROTESTO DE TÍTULOS",
+        "total": 581880.45
+      },
+      {
+        "serventia": "CAPIXABA",
+        "total": 350487.34
+      },
+      {
+        "serventia": "MÂNCIO LIMA",
+        "total": 342651.3
+      },
+      {
+        "serventia": "MANOEL URBANO",
+        "total": 288213.13
+      },
+      {
+        "serventia": "RODRIGUES ALVES",
+        "total": 219750.95
+      },
+      {
+        "serventia": "ASSIS BRASIL",
+        "total": 183563.88
+      },
+      {
+        "serventia": "JORDÃO",
+        "total": 89786.71
+      },
+      {
+        "serventia": "MARECHAL THAUMATURGO",
+        "total": 83073.36
+      },
+      {
+        "serventia": "PORTO WALTER",
+        "total": 48419.0
+      },
+      {
+        "serventia": "SANTA ROSA DO PURUS",
+        "total": 13896.37
+      }
+    ]
+  }
 }
