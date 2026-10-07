@@ -12,19 +12,19 @@ interface ComparadorEscalaProps {
 
 export default function ComparadorEscala({
   valorPagamento,
-  cargoExemplo = 'Desembargador (TJMT)',
-  orgaoExemplo = 'Setembro/2026',
+  cargoExemplo = 'Desembargador (TJAC)',
+  orgaoExemplo = 'Rio Branco · AC',
 }: ComparadorEscalaProps) {
-  const [rendaReferencia, setRendaReferencia] = useState<number>(3200);
+  const [rendaReferencia, setRendaReferencia] = useState<number>(2450);
 
   const mesesNecessarios = Math.max(1, Math.round(valorPagamento / rendaReferencia));
   const anosNecessarios = (valorPagamento / (rendaReferencia * 12)).toFixed(1);
 
   const presets = [
-    { label: 'Salário Mínimo', valor: 1518 },
+    { label: 'Renda Média Acre (IBGE)', valor: 2450 },
+    { label: 'Salário Mínimo (2026 - PLDO)', valor: 1621 },
     { label: 'Renda Média Brasil (IBGE)', valor: 3200 },
-    { label: 'Renda Média Superior', valor: 7500 },
-    { label: 'Teto Constitucional', valor: 44008 },
+    { label: 'Teto Constitucional STF', valor: 44008 },
   ];
 
   return (

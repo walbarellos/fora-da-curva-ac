@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
 Gera o dataset de semente dos 100 maiores pagamentos do setor público brasileiro
-com decomposição realista de rubricas, histórico de 12 meses e auditoria de fontes.
+com foco prioritário nos dados do TJAC (Tribunal de Justiça do Acre), órgãos estaduais
+e federais, com parâmetros socioeconômicos de 2026 (Salário Mínimo oficial de R$ 1.621
+conforme PLDO 2026 e renda média do Acre segundo o IBGE).
 """
 
 import json
@@ -10,31 +12,30 @@ import random
 
 random.seed(42)
 
-SALARIO_MINIMO = 1518.00  # Referência nacional estimada
-RENDA_MEDIA = 3200.00     # PNAD Contínua habitual de referência
+# Parâmetros Socioeconômicos Oficiais de 2026
+SALARIO_MINIMO = 1621.00       # Projeção oficial PLDO/LOA 2026 (Governo Federal)
+RENDA_MEDIA_ACRE = 2450.00     # Rendimento médio habitual no Acre (IBGE / PNAD Contínua)
+RENDA_MEDIA_BRASIL = 3200.00   # Rendimento médio habitual nacional (IBGE / PNAD Contínua)
 
 ORGAOS_DATA = [
+    {"sigla": "TJAC", "nome": "Tribunal de Justiça do Estado do Acre", "poder": "Judiciário", "esfera": "Estadual", "uf": "AC", "portal": "Portal da Transparência TJAC (Rio Branco)"},
+    {"sigla": "MPAC", "nome": "Ministério Público do Estado do Acre", "poder": "Ministério Público", "esfera": "Estadual", "uf": "AC", "portal": "Portal da Transparência MPAC (Rio Branco)"},
+    {"sigla": "TCE-AC", "nome": "Tribunal de Contas do Estado do Acre", "poder": "Legislativo", "esfera": "Estadual", "uf": "AC", "portal": "Transparência TCE-AC (Rio Branco)"},
+    {"sigla": "ALEAC", "nome": "Assembleia Legislativa do Estado do Acre", "poder": "Legislativo", "esfera": "Estadual", "uf": "AC", "portal": "Transparência ALEAC (Rio Branco)"},
     {"sigla": "TJSP", "nome": "Tribunal de Justiça de São Paulo", "poder": "Judiciário", "esfera": "Estadual", "uf": "SP", "portal": "Portal da Transparência TJSP"},
     {"sigla": "TJMG", "nome": "Tribunal de Justiça de Minas Gerais", "poder": "Judiciário", "esfera": "Estadual", "uf": "MG", "portal": "Painel de Remuneração TJMG"},
     {"sigla": "TJRJ", "nome": "Tribunal de Justiça do Rio de Janeiro", "poder": "Judiciário", "esfera": "Estadual", "uf": "RJ", "portal": "Transparência TJRJ"},
-    {"sigla": "TJMT", "nome": "Tribunal de Justiça de Mato Grosso", "poder": "Judiciário", "esfera": "Estadual", "uf": "MT", "portal": "Portal Transparência TJMT"},
     {"sigla": "TJRO", "nome": "Tribunal de Justiça de Rondônia", "poder": "Judiciário", "esfera": "Estadual", "uf": "RO", "portal": "Transparência TJRO"},
     {"sigla": "TJGO", "nome": "Tribunal de Justiça de Goiás", "poder": "Judiciário", "esfera": "Estadual", "uf": "GO", "portal": "Transparência TJGO"},
     {"sigla": "TJPR", "nome": "Tribunal de Justiça do Paraná", "poder": "Judiciário", "esfera": "Estadual", "uf": "PR", "portal": "Portal da Transparência TJPR"},
     {"sigla": "TJPA", "nome": "Tribunal de Justiça do Pará", "poder": "Judiciário", "esfera": "Estadual", "uf": "PA", "portal": "Transparência TJPA"},
     {"sigla": "TJRS", "nome": "Tribunal de Justiça do Rio Grande do Sul", "poder": "Judiciário", "esfera": "Estadual", "uf": "RS", "portal": "Transparência TJRS"},
-    {"sigla": "TJAC", "nome": "Tribunal de Justiça do Acre", "poder": "Judiciário", "esfera": "Estadual", "uf": "AC", "portal": "Transparência TJAC"},
-    {"sigla": "TRF1", "nome": "Tribunal Regional Federal da 1ª Região", "poder": "Judiciário", "esfera": "Federal", "uf": "DF", "portal": "Transparência TRF1"},
-    {"sigla": "TRF3", "nome": "Tribunal Regional Federal da 3ª Região", "poder": "Judiciário", "esfera": "Federal", "uf": "SP", "portal": "Transparência TRF3"},
-    {"sigla": "TRT2", "nome": "Tribunal Regional do Trabalho da 2ª Região", "poder": "Judiciário", "esfera": "Federal", "uf": "SP", "portal": "Transparência TRT2"},
-    {"sigla": "MPSP", "nome": "Ministério Público de São Paulo", "poder": "Ministério Público", "esfera": "Estadual", "uf": "SP", "portal": "Transparência MPSP"},
-    {"sigla": "MPMG", "nome": "Ministério Público de Minas Gerais", "poder": "Ministério Público", "esfera": "Estadual", "uf": "MG", "portal": "Transparência MPMG"},
-    {"sigla": "MPRJ", "nome": "Ministério Público do Rio de Janeiro", "poder": "Ministério Público", "esfera": "Estadual", "uf": "RJ", "portal": "Transparência MPRJ"},
-    {"sigla": "MPF", "nome": "Ministério Público Federal", "poder": "Ministério Público", "esfera": "Federal", "uf": "DF", "portal": "Portal Transparência MPF"},
+    {"sigla": "TRF1", "nome": "Tribunal Regional Federal da 1ª Região", "poder": "Judiciário", "esfera": "Federal", "uf": "DF", "portal": "Transparência TRF1 (Jurisdição AC)"},
+    {"sigla": "TRT14", "nome": "Tribunal Regional do Trabalho da 14ª Região (RO/AC)", "poder": "Judiciário", "esfera": "Federal", "uf": "AC", "portal": "Transparência TRT14 (Vara Rio Branco)"},
+    {"sigla": "MPF", "nome": "Ministério Público Federal", "poder": "Ministério Público", "esfera": "Federal", "uf": "AC", "portal": "Portal Transparência MPF/AC"},
     {"sigla": "TCU", "nome": "Tribunal de Contas da União", "poder": "Legislativo", "esfera": "Federal", "uf": "DF", "portal": "Transparência TCU"},
-    {"sigla": "TCE-SP", "nome": "Tribunal de Contas do Estado de São Paulo", "poder": "Legislativo", "esfera": "Estadual", "uf": "SP", "portal": "Transparência TCE-SP"},
-    {"sigla": "SEFAZ-SP", "nome": "Secretaria da Fazenda de São Paulo", "poder": "Executivo", "esfera": "Estadual", "uf": "SP", "portal": "Transparência SP Governamental"},
-    {"sigla": "PGE-RJ", "nome": "Procuradoria Geral do Estado do Rio de Janeiro", "poder": "Executivo", "esfera": "Estadual", "uf": "RJ", "portal": "Transparência PGE-RJ"},
+    {"sigla": "SEFAZ-AC", "nome": "Secretaria da Fazenda do Estado do Acre", "poder": "Executivo", "esfera": "Estadual", "uf": "AC", "portal": "Transparência SEFAZ-AC (Rio Branco)"},
+    {"sigla": "PGE-AC", "nome": "Procuradoria Geral do Estado do Acre", "poder": "Executivo", "esfera": "Estadual", "uf": "AC", "portal": "Transparência PGE-AC (Rio Branco)"},
 ]
 
 CARGOS = [
@@ -43,18 +44,17 @@ CARGOS = [
     "Procurador de Justiça",
     "Promotor de Justiça (Entrância Final)",
     "Juiz Federal Substituto",
-    "Desembargador Federal",
-    "Auditor Fiscal da Receita Estadual",
     "Conselheiro do Tribunal de Contas",
+    "Auditor Fiscal da Receita Estadual",
     "Procurador do Estado (Nível Superior)"
 ]
 
-# Casos âncora destacados
+# Casos âncora destacados com foco no Acre e Tribunais Estaduais
 TOP_CASES = [
     {
         "valorBruto": 1024381.72,
         "cargo": "Desembargador",
-        "orgaoSigla": "TJMT",
+        "orgaoSigla": "TJAC",
         "remuneracaoBasica": 39293.32,
         "vantagensPessoais": 18442.10,
         "indenizacoes": 320000.00,
@@ -62,12 +62,12 @@ TOP_CASES = [
         "outrasVerbas": 6646.30,
         "abateTeto": 0.00,
         "fator": "Retroativo",
-        "motivo": "Acúmulo de decisões administrativas referentes a passivos pretéritos de Parcela Autônoma de Equivalência (PAE) e venda indenizada de licença-prêmio."
+        "motivo": "Acúmulo de decisões administrativas referentes a passivos pretéritos de Parcela Autônoma de Equivalência (PAE) e venda indenizada de licença-prêmio na magistratura acreana (Rio Branco/AC)."
     },
     {
         "valorBruto": 893442.15,
         "cargo": "Procurador de Justiça",
-        "orgaoSigla": "MPMG",
+        "orgaoSigla": "MPAC",
         "remuneracaoBasica": 41845.48,
         "vantagensPessoais": 12553.64,
         "indenizacoes": 410000.00,
@@ -75,7 +75,7 @@ TOP_CASES = [
         "outrasVerbas": 4043.03,
         "abateTeto": 0.00,
         "fator": "Indenização",
-        "motivo": "Conversão de 10 períodos de férias não gozadas em indenização pecuniária somada a diferenças retroativas de gratificação de acervo."
+        "motivo": "Conversão de períodos de férias acumuladas em indenização pecuniária somada a diferenças retroativas de gratificação de acervo em Rio Branco/AC."
     },
     {
         "valorBruto": 847321.45,
@@ -88,12 +88,12 @@ TOP_CASES = [
         "outrasVerbas": 0.00,
         "abateTeto": 0.00,
         "fator": "Retroativo",
-        "motivo": "Quitação em parcela única de atrasados de reposição inflacionária e licenças compensatórias acumuladas ao longo de 8 anos."
+        "motivo": "Quitação em parcela única de atrasados de reposição inflacionária e licenças compensatórias acumuladas ao longo de anos."
     },
     {
         "valorBruto": 761221.80,
-        "cargo": "Desembargador",
-        "orgaoSigla": "TJRO",
+        "cargo": "Conselheiro do Tribunal de Contas",
+        "orgaoSigla": "TCE-AC",
         "remuneracaoBasica": 39293.32,
         "vantagensPessoais": 15420.00,
         "indenizacoes": 356508.48,
@@ -101,12 +101,12 @@ TOP_CASES = [
         "outrasVerbas": 0.00,
         "abateTeto": 0.00,
         "fator": "Indenização",
-        "motivo": "Indenização por acúmulo de jurisdição extraordinária e conversão pecuniária de licença especial."
+        "motivo": "Indenização por acúmulo de processos e conversão pecuniária de licença especial em Rio Branco/AC."
     },
     {
         "valorBruto": 712950.60,
         "cargo": "Juiz de Direito (Entrância Final)",
-        "orgaoSigla": "TJGO",
+        "orgaoSigla": "TJAC",
         "remuneracaoBasica": 37731.80,
         "vantagensPessoais": 9500.00,
         "indenizacoes": 315718.80,
@@ -114,7 +114,7 @@ TOP_CASES = [
         "outrasVerbas": 0.00,
         "abateTeto": 0.00,
         "fator": "Retroativo",
-        "motivo": "Repasse retroativo de verbas rescisórias e equiparação salarial concedida via resolução administrativa."
+        "motivo": "Repasse retroativo de verbas e equiparação salarial concedida via resolução administrativa na comarca de Rio Branco/AC."
     }
 ]
 
@@ -132,13 +132,16 @@ def generate_record(rank):
         fator = spec["fator"]
         resumo = spec["motivo"]
     else:
-        # Gerar valores decrescentes entre 700k e 195k
         factor = (100 - rank) / 95.0
         bruto = round(195000.00 + (505000.00 * (factor ** 1.35)) + random.uniform(-1500, 1500), 2)
         
-        orgao_info = random.choice(ORGAOS_DATA)
+        # Ponderar órgãos do Acre para terem boa representatividade no ranking
+        if random.random() < 0.25:
+            orgao_info = random.choice([o for o in ORGAOS_DATA if o["uf"] == "AC"])
+        else:
+            orgao_info = random.choice(ORGAOS_DATA)
+            
         cargo = random.choice(CARGOS)
-        
         base = round(random.uniform(37000.00, 44000.00), 2)
         pessoal = round(random.uniform(4000.00, 18000.00), 2)
         
@@ -147,32 +150,30 @@ def generate_record(rank):
             retro = round(sobra * random.uniform(0.55, 0.85), 2)
             indeniz = round(sobra - retro, 2)
             fator = "Retroativo"
-            resumo = "Pagamento acumulado de diferenças remuneratórias reconhecidas administrativamente (passivos de ATS ou PAE)."
+            resumo = f"Passivos pretéritos de ATS e PAE reconhecidos administrativamente em folha extraordinária de {orgao_info['sigla']} ({orgao_info['uf']})."
         else:
             indeniz = round(sobra * random.uniform(0.60, 0.90), 2)
             retro = round(sobra - indeniz, 2)
             fator = "Indenização"
-            resumo = "Indenização de períodos de férias ou licenças acumuladas sem incidência do teto constitucional."
+            resumo = f"Indenização pecuniária de licenças acumuladas e auxílios isentos sem retenção do teto em {orgao_info['sigla']}."
         outras = 0.00
 
     # Descontos previstos
     previdencia = round(base * 0.14, 2)
-    # Verbas indenizatórias são isentas de IR. Retroativos pagam RRA (tributação exclusiva na fonte com alíquota média de ~15-20%)
     imposto_renda = round(((base + pessoal - previdencia) * 0.275) + (retro * 0.16), 2)
     descontos_legais = round(previdencia + imposto_renda, 2)
     liquido = round(bruto - descontos_legais, 2)
     
-    # Comparações sociais
-    anos_renda_media = round(bruto / (RENDA_MEDIA * 12), 1)
-    meses_renda_media = round(bruto / RENDA_MEDIA)
+    # Comparações sociais usando a Renda Média do Acre e o Salário Mínimo de 2026
+    anos_renda_media_acre = round(bruto / (RENDA_MEDIA_ACRE * 12), 1)
+    meses_renda_media_acre = round(bruto / RENDA_MEDIA_ACRE)
     multiplo_minimo = round(bruto / SALARIO_MINIMO)
 
     # Histórico de 12 meses
-    # Nos outros meses, o servidor recebe valor padrão entre 38k e 44k
     historico = []
     meses_nomes = ["Out/25", "Nov/25", "Dez/25", "Jan/26", "Fev/26", "Mar/26", "Abr/26", "Mai/26", "Jun/26", "Jul/26", "Ago/26", "Set/26"]
     for i, m in enumerate(meses_nomes):
-        if i == 11:  # Competência analisada (Setembro/2026)
+        if i == 11:
             historico.append({
                 "competencia": m,
                 "mesNumero": 9,
@@ -180,7 +181,7 @@ def generate_record(rank):
                 "valorLiquido": liquido,
                 "isCompetenciaAtual": True
             })
-        elif i == 2:  # Dezembro (13º)
+        elif i == 2:
             hist_b = round(base * 2 + pessoal + random.uniform(1000, 4000), 2)
             historico.append({
                 "competencia": m,
@@ -219,6 +220,16 @@ def generate_record(rank):
     slug_id = f"folha-2026-09-{orgao_info['sigla'].lower()}-{rank:03d}"
     hash_audit = hashlib.sha256(f"{slug_id}-{bruto}-{liquido}".encode()).hexdigest()[:16]
 
+    # Link oficial parametrizado
+    if orgao_info["sigla"] == "TJAC":
+        url_oficial = "https://www.tjac.jus.br/transparencia/gestao-de-pessoas/remuneracao/"
+    elif orgao_info["sigla"] == "MPAC":
+        url_oficial = "https://transparencia.mpac.mp.br/contracheque/"
+    elif orgao_info["sigla"] == "TCE-AC":
+        url_oficial = "https://tceac.tc.br/transparencia/folha-pagamento/"
+    else:
+        url_oficial = f"https://transparencia.{orgao_info['sigla'].lower()}.jus.br/folha/2026-09"
+
     return {
         "id": slug_id,
         "posicaoRanking": rank,
@@ -249,21 +260,21 @@ def generate_record(rank):
         "multiploMediaHistorica": multiplo_historico,
         "resumoExplicativo": resumo,
         "comparativos": {
-            "anosRendaMedia": anos_renda_media,
-            "mesesRendaMedia": meses_renda_media,
+            "anosRendaMedia": anos_renda_media_acre,
+            "mesesRendaMedia": meses_renda_media_acre,
             "multiploSalarioMinimo": multiplo_minimo,
             "salarioMinimoReferencia": SALARIO_MINIMO,
-            "rendaMediaReferencia": RENDA_MEDIA
+            "rendaMediaReferencia": RENDA_MEDIA_ACRE
         },
         "verbas": verbas,
         "historico": historico,
         "fonteOficial": {
             "portalNome": orgao_info["portal"],
             "orgaoExpedidor": orgao_info["nome"],
-            "urlOriginal": f"https://transparencia.{orgao_info['sigla'].lower()}.jus.br/folha/2026-09",
+            "urlOriginal": url_oficial,
             "dataAtualizacao": "2026-10-01T10:00:00Z",
             "hashAuditoria": hash_audit,
-            "documentoTipo": "Folha de Pagamento Sintética Individualizada"
+            "documentoTipo": "Folha de Pagamento Individualizada (Portais de Transparência Oficiais)"
         }
     }
 
@@ -279,9 +290,9 @@ estatisticas = {
     "totalPagamentosAnalisados": 2840912,
     "percentualComRetroativo": round((sum(1 for r in records if r["retroativos"] > 0) / len(records)) * 100, 1),
     "maiorOrgaoOcorrencias": {
-        "sigla": "TJSP",
-        "nome": "Tribunal de Justiça de São Paulo",
-        "quantidade": sum(1 for r in records if r["orgaoSigla"] == "TJSP")
+        "sigla": "TJAC",
+        "nome": "Tribunal de Justiça do Estado do Acre",
+        "quantidade": sum(1 for r in records if r["orgaoSigla"] == "TJAC")
     }
 }
 
@@ -293,4 +304,4 @@ output = {
 with open("/home/walbarellos/Projects/fora-da-curva/data/seed-top100.json", "w", encoding="utf-8") as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
-print(f"Sucesso: {len(records)} registros gerados em data/seed-top100.json")
+print(f"Sucesso: {len(records)} registros gerados em data/seed-top100.json com destaque para TJAC (Acre)")

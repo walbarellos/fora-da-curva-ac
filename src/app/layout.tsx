@@ -29,8 +29,10 @@ export const metadata: Metadata = {
     'CNJ',
     'dados abertos',
     'teto constitucional',
-    'TJMT',
-    'STJ',
+    'TJAC',
+    'Acre',
+    'Rio Branco',
+    'magistratura',
   ],
   openGraph: {
     title: 'FORA DA CURVA — Transparência Pública Explicada',
