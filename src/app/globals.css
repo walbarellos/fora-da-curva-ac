@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-page: #0B0D10;
+    --bg-card: #11151A;
+    --bg-card-hover: #151B21;
+    --bg-subtle: #181D23;
+    --border-subtle: #232B35;
+    --border-muted: #1B2129;
+    
+    --text-high: #F4F5F7;
+    --text-medium: #A8AFB8;
+    --text-muted: #6C7480;
+
+    --accent-amber: #F5B942;
+    --accent-amber-subtle: rgba(245, 185, 66, 0.12);
+    
+    --status-exceptional: #E45757;
+    --status-exceptional-subtle: rgba(228, 87, 87, 0.12);
+    
+    --status-regular: #58C4A3;
+    --status-regular-subtle: rgba(88, 196, 163, 0.12);
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-high);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Redução de movimento para acessibilidade WCAG 2.2 AA */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
