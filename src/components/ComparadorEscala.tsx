@@ -21,11 +21,10 @@ export default function ComparadorEscala({
   const anosNecessarios = (valorPagamento / (rendaReferencia * 12)).toFixed(1);
 
   const presets = [
-    { label: 'Salário Mínimo Vigente', valor: 1412 },
-    { label: 'Salário Mínimo 2026 (PLDO)', valor: 1621 },
-    { label: 'Renda Média Acre (IBGE)', valor: 2450 },
-    { label: 'Renda Média Brasil (IBGE)', valor: 3200 },
-    { label: 'Teto Constitucional STF', valor: 44008 },
+    { label: 'Salário mínimo 2026 (PLDO)', valor: 1621 },
+    { label: 'Renda média Acre (IBGE)', valor: 2450 },
+    { label: 'Renda média Brasil (IBGE)', valor: 3200 },
+    { label: 'Teto constitucional (STF)', valor: 44008 },
   ];
 
   return (
