@@ -12,20 +12,26 @@ NUM = re.compile(r"\d{1,3}(?:\.\d{3})*,\d{2}")
 
 rows = []
 pending_name = ""
+# Linhas de cabeçalho (topo do documento). A legenda de siglas vem depois de
+# "TOTALIZADOR GERAL" e é descartada pelo break abaixo.
+HEADER = ("TRIBUNAL", "CORREGEDORIA", "JUSTIÇA", "ARRECADAÇÃO", "SERVENTIA")
+
 for raw in TXT.read_text(encoding="utf-8", errors="replace").splitlines():
     line = raw.strip()
     if not line:
         continue
+    if "TOTALIZADOR" in line:
+        break
     nums = NUM.findall(line)
     if not nums:
-        # linha de cabeçalho ou nome quebrado
-        if line and line[0].isupper() and "TOTALIZADOR" not in line and "SERVENTIA" not in line and "---" not in line:
-            if pending_name:
-                pending_name += " " + line
-            elif not any(k in line for k in ("TRIBUNAL", "CORREGEDORIA", "ARRECADAÇÃO", "Observações", "SIGLAS", "Os valores", "Nos valores", "1 -", "2 -", "CZS", "RBR", "RCPN", "TDPJ", "PJ")):
-                pending_name = line
-        continue
-    if "TOTALIZADOR" in line:
+        # Cabeçalho do documento ou nome de serventia quebrado em duas linhas.
+        # Acumula até encontrar a linha que traz os valores.
+        if any(k in line for k in HEADER):
+            continue
+        if pending_name:
+            pending_name += " " + line
+        else:
+            pending_name = line
         continue
     first_num_idx = line.index(nums[0])
     name = line[:first_num_idx].strip()
@@ -63,6 +69,6 @@ data["serventiasExtrajudiciais"] = bloco
 out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 print(f"{len(rows)} serventias | total R$ {total_geral:,.2f}")
-print(f"acMBima de 500k: {bloco['serventiasAcima500k']} serventias, R$ {bloco['totalAcima500k']:,.2f}")
+print(f"acima de 500k: {bloco['serventiasAcima500k']} serventias, R$ {bloco['totalAcima500k']:,.2f}")
 for r in rows[:10]:
     print(f"  {r['serventia'][:55]:55} R$ {r['total']:>15,.2f}")
