@@ -92,7 +92,7 @@ export default function CartoriosPage() {
             <tbody>
               {ranking.map((r, i) => (
                 <tr
-                  key={r.serventia}
+                  key={`${r.serventia}-${i}`}
                   className="border-t border-[var(--border-muted)] hover:bg-[var(--bg-card)]/60"
                 >
                   <td className="px-4 py-2.5 font-mono text-[var(--text-muted)]">
