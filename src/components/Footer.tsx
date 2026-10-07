@@ -1,116 +1,181 @@
 import Link from 'next/link';
-import { Scale, ExternalLink, ShieldCheck, FileCheck2 } from 'lucide-react';
+import { Scale, ExternalLink, ShieldCheck, FileCheck2, BookOpen, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1B2129] bg-[#0B0D10] text-[#A8AFB8] mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center space-x-2">
-              <Scale className="w-5 h-5 text-[#F5B942]" />
-              <span className="text-base font-bold text-[#F4F5F7] tracking-tight">
-                FORA DA CURVA
-              </span>
+    <footer className="border-t border-[var(--border-muted)] bg-[var(--bg-page)] text-[var(--text-medium)] mt-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        {/* Grid principal */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+          {/* Identidade + princípio */}
+          <div className="md:col-span-5 space-y-5">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-md bg-[var(--bg-subtle)] border border-[var(--border-subtle)] flex items-center justify-center">
+                <Scale className="w-4 h-4 text-[var(--accent)]" />
+              </div>
+              <div>
+                <span className="text-base font-bold text-[var(--text-high)] tracking-tight block leading-none">
+                  FORA DA CURVA
+                </span>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)]">
+                  Transparência Pública
+                </span>
+              </div>
             </div>
-            <p className="text-sm text-[#A8AFB8] max-w-md leading-relaxed">
-              Plataforma cívica e editorial de transparência pública. Transformamos folhas de pagamento burocráticas em dados compreensíveis, sem sensacionalismo e com rigor metodológico.
+
+            <p className="text-sm text-[var(--text-medium)] leading-relaxed max-w-md">
+              Plataforma cívica e editorial de transparência pública. Transformamos folhas de pagamento
+              burocráticas em dados compreensíveis, sem sensacionalismo e com rigor metodológico.
             </p>
-            <div className="text-xs text-[#6C7480] space-y-1">
-              <p>• Quanto mais chocante o número, mais rigorosa deve ser a explicação.</p>
-              <p>• Dados oficiais obtidos sob a Lei de Acesso à Informação (Lei nº 12.527/2011).</p>
+
+            <div className="space-y-1.5 text-xs text-[var(--text-muted)]">
+              <p className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-0.5">•</span>
+                Quanto mais chocante o número, mais rigorosa deve ser a explicação.
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-0.5">•</span>
+                Dados oficiais obtidos sob a Lei de Acesso à Informação (Lei nº 12.527/2011).
+              </p>
             </div>
           </div>
 
-          <div>
-            <h4 className="text-xs uppercase font-mono tracking-wider text-[#F4F5F7] mb-3">
-              Exploração
-            </h4>
-            <ul className="space-y-2 text-sm">
+          {/* Navegação */}
+          <div className="md:col-span-2">
+            <h4 className="font-label mb-4 text-[var(--text-high)]">Exploração</h4>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/" className="hover:text-[#F5B942] transition-colors">
-                  Início (Maior Pagamento)
+                <Link
+                  href="/"
+                  className="text-[var(--text-medium)] hover:text-[var(--accent)] transition-colors"
+                >
+                  Início
                 </Link>
               </li>
               <li>
-                <Link href="/ranking" className="hover:text-[#F5B942] transition-colors">
-                  Ranking dos 100 Maiores
+                <Link
+                  href="/ranking"
+                  className="text-[var(--text-medium)] hover:text-[var(--accent)] transition-colors"
+                >
+                  Ranking dos 100
                 </Link>
               </li>
               <li>
-                <Link href="/metodologia" className="hover:text-[#F5B942] transition-colors">
-                  Metodologia e Fórmulas
+                <Link
+                  href="/metodologia"
+                  className="text-[var(--text-medium)] hover:text-[var(--accent)] transition-colors"
+                >
+                  Metodologia
                 </Link>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-xs uppercase font-mono tracking-wider text-[#F4F5F7] mb-3">
-              Fontes Primárias
-            </h4>
-            <ul className="space-y-2 text-sm text-[#6C7480]">
-              <li className="flex items-center space-x-1.5 hover:text-[#A8AFB8]">
-                <span>Painel de Remuneração CNJ</span>
-              </li>
-              <li className="flex items-center space-x-1.5 hover:text-[#A8AFB8]">
-                <span>Transparência CNMP</span>
-              </li>
-              <li className="flex items-center space-x-1.5 hover:text-[#A8AFB8]">
-                <span>Portais Oficiais de Tribunais</span>
-              </li>
-              <li className="flex items-center space-x-1.5 hover:text-[#A8AFB8]">
-                <span>Portal da Transparência CGU</span>
-              </li>
+          {/* Fontes */}
+          <div className="md:col-span-2">
+            <h4 className="font-label mb-4 text-[var(--text-high)]">Fontes Primárias</h4>
+            <ul className="space-y-2.5 text-sm text-[var(--text-muted)]">
+              <li className="hover:text-[var(--text-medium)] transition-colors">Painel CNJ</li>
+              <li className="hover:text-[var(--text-medium)] transition-colors">Transparência CNMP</li>
+              <li className="hover:text-[var(--text-medium)] transition-colors">Tribunais Oficiais</li>
+              <li className="hover:text-[var(--text-medium)] transition-colors">Portal CGU</li>
             </ul>
           </div>
-        </div>
 
-        {/* Bloco Acadêmico de Autoria & Co-autoria */}
-        <div className="py-6 border-t border-[#181D23] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#A8AFB8]">
-            <span className="font-semibold text-[#F4F5F7]">
-              Autoria & Pesquisa:
-            </span>
-            <span>
-              <strong className="text-[#F4F5F7]">Willian Albarello</strong>{' '}
-              <a
-                href="https://instagram.com/walbarellos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#F5B942] hover:underline font-mono"
-              >
-                @walbarellos
-              </a>{' '}
-              <span className="text-[#6C7480]">(Engenharia & Arquitetura)</span>
-            </span>
-            <span className="hidden sm:inline text-[#6C7480]">•</span>
-            <span>
-              <strong className="text-[#F4F5F7]">Wenrrison Nogueira</strong>{' '}
-              <a
-                href="https://instagram.com/nswenrrisonchris"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#F5B942] hover:underline font-mono"
-              >
-                @nswenrrisonchris
-              </a>{' '}
-              <span className="text-[#6C7480]">(Co-autor & Concepção)</span>
-            </span>
-          </div>
-          <div className="text-[11px] font-mono text-[#6C7480]">
-            Pesquisa & Engenharia de Dados Abertos
+          {/* Localização / Projeto */}
+          <div className="md:col-span-3">
+            <h4 className="font-label mb-4 text-[var(--text-high)]">Projeto</h4>
+            <div className="space-y-3 text-sm text-[var(--text-muted)]">
+              <p className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[var(--accent)] shrink-0" />
+                Rio Branco · Acre
+              </p>
+              <p className="text-xs leading-relaxed">
+                Iniciativa independente de pesquisa e engenharia de dados abertos. Sem vínculo institucional
+                com órgãos públicos.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-[#181D23] flex flex-col sm:flex-row items-center justify-between text-xs text-[#6C7480] gap-4">
-          <p>© 2026 Fora da Curva. Dados abertos de domínio público para fins de transparência e pesquisa.</p>
-          <div className="flex items-center space-x-4">
-            <span className="inline-flex items-center gap-1">
-              <FileCheck2 className="w-3.5 h-3.5 text-[#58C4A3]" /> WCAG 2.2 AA Conforme
+        {/* Bloco acadêmico de autoria */}
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border-muted)] bg-[var(--bg-card)] p-6 sm:p-7 mb-10">
+          <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+            <div className="flex-1 space-y-4">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-[var(--accent)]" />
+                <span className="font-label text-[var(--accent)]">Autoria & Pesquisa</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {/* Willian */}
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-[var(--text-high)]">
+                    Willian Albarello
+                  </p>
+                  <p className="text-xs text-[var(--text-muted)]">
+                    Engenharia, Arquitetura de Software e Modelagem de Dados
+                  </p>
+                  <a
+                    href="https://instagram.com/walbarellos"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-mono text-[var(--accent)] hover:underline mt-1"
+                  >
+                    @walbarellos
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+
+                {/* Wenrrison */}
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-[var(--text-high)]">
+                    Wenrrison Nogueira
+                  </p>
+                  <p className="text-xs text-[var(--text-muted)]">
+                    Concepção Conceitual e Formulação da Problemática
+                  </p>
+                  <a
+                    href="https://instagram.com/nswenrrisonchris"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-mono text-[var(--accent)] hover:underline mt-1"
+                  >
+                    @nswenrrisonchris
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Como citar */}
+            <div className="lg:w-80 shrink-0 space-y-2">
+              <p className="font-label text-[var(--text-high)]">Como citar (ABNT)</p>
+              <div className="rounded-[var(--radius-md)] bg-[var(--bg-inset)] border border-[var(--border-muted)] p-3.5">
+                <p className="text-[11px] font-mono text-[var(--text-medium)] leading-relaxed">
+                  ALBARELLO, Willian; NOGUEIRA, Wenrrison. <em>Fora da Curva</em>: Plataforma de
+                  Transparência e Análise de Remunerações Atípicas no Setor Público Brasileiro. Rio
+                  Branco, 2026.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Rodapé legal */}
+        <div className="pt-6 border-t border-[var(--border-muted)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
+          <p>
+            © 2026 Fora da Curva. Dados abertos de domínio público para fins de transparência e
+            pesquisa.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span className="inline-flex items-center gap-1.5">
+              <FileCheck2 className="w-3.5 h-3.5 text-[var(--status-regular)]" />
+              WCAG 2.2 AA
             </span>
-            <span className="inline-flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#F5B942]" /> Auditoria Criptográfica
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent)]" />
+              Dados sob LAI
             </span>
           </div>
         </div>

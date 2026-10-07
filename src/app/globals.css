@@ -1,47 +1,313 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+/* =========================================================
+   FORA DA CURVA — Design Tokens (Editorial Sóbrio)
+   ========================================================= */
+
 @layer base {
   :root {
+    /* Superfícies */
     --bg-page: #0B0D10;
-    --bg-card: #11151A;
-    --bg-card-hover: #151B21;
-    --bg-subtle: #181D23;
+    --bg-elevated: #0F1216;
+    --bg-card: #12171D;
+    --bg-card-hover: #161C23;
+    --bg-subtle: #1A2028;
+    --bg-inset: #0D1014;
+
+    /* Bordas */
     --border-subtle: #232B35;
     --border-muted: #1B2129;
-    
+    --border-strong: #2E3742;
+    --border-accent: rgba(245, 185, 66, 0.35);
+
+    /* Texto */
     --text-high: #F4F5F7;
     --text-medium: #A8AFB8;
     --text-muted: #6C7480;
+    --text-faint: #4A525C;
 
-    --accent-amber: #F5B942;
-    --accent-amber-subtle: rgba(245, 185, 66, 0.12);
-    
+    /* Accent (âmbar editorial) */
+    --accent: #F5B942;
+    --accent-hover: #E2A937;
+    --accent-subtle: rgba(245, 185, 66, 0.12);
+    --accent-muted: rgba(245, 185, 66, 0.08);
+
+    /* Status */
     --status-exceptional: #E45757;
     --status-exceptional-subtle: rgba(228, 87, 87, 0.12);
-    
     --status-regular: #58C4A3;
     --status-regular-subtle: rgba(88, 196, 163, 0.12);
+    --status-neutral: #7B8794;
+
+    /* Sombras editoriais */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-accent: 0 4px 20px rgba(245, 185, 66, 0.12);
+
+    /* Raios */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--bg-page);
     color: var(--text-high);
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    line-height: 1.55;
+  }
+
+  /* Seleção de texto editorial */
+  ::selection {
+    background-color: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  /* Focus visível e acessível */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 }
 
+/* =========================================================
+   Tipografia utilitária
+   ========================================================= */
+
 .tabular-nums {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
+  font-feature-settings: "tnum", "lnum";
+  letter-spacing: -0.01em;
 }
 
-/* Redução de movimento para acessibilidade WCAG 2.2 AA */
+.font-display {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.font-label {
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   Containers padronizados
+   ========================================================= */
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.card:hover {
+  border-color: var(--border-subtle);
+  background-color: var(--bg-card-hover);
+}
+
+.card-elevated {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-accent {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-accent);
+}
+
+/* =========================================================
+   Microanimações (respeitam prefers-reduced-motion)
+   ========================================================= */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 40ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 120ms; }
+.stagger-4 { animation-delay: 160ms; }
+.stagger-5 { animation-delay: 200ms; }
+.stagger-6 { animation-delay: 240ms; }
+
+/* Hover lift sutil */
+.hover-lift {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 180ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Número hero */
+.hero-number {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* =========================================================
+   Componentes de dados
+   ========================================================= */
+
+.bar-track {
+  height: 4px;
+  background-color: var(--bg-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bar-fill-basic { background-color: var(--status-regular); }
+.bar-fill-indenizacao { background-color: var(--accent); }
+.bar-fill-retroativo { background-color: var(--status-exceptional); }
+
+/* Badge / Chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-subtle);
+  color: var(--text-medium);
+  transition: all 150ms ease;
+}
+
+.chip-active {
+  background-color: var(--accent-subtle);
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+
+/* Botão primário editorial */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  background-color: var(--accent);
+  color: var(--bg-page);
+  transition: background-color 160ms ease, box-shadow 200ms ease, transform 160ms ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-high);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+/* =========================================================
+   Acessibilidade — redução de movimento
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
+  *,
+  ::before,
+  ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .hover-lift:hover {
+    transform: none;
   }
 }

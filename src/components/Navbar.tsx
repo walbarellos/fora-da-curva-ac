@@ -1,50 +1,50 @@
 import Link from 'next/link';
-import { Landmark, ArrowUpRight, ShieldCheck, Scale, FileText } from 'lucide-react';
+import { Scale, ArrowUpRight } from 'lucide-react';
 
 export default function Navbar() {
   return (
-    <header className="border-b border-[#1B2129] bg-[#0B0D10]/90 backdrop-blur-md sticky top-0 z-50">
+    <header className="border-b border-[var(--border-muted)] bg-[var(--bg-page)]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-6">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-8 h-8 rounded bg-[#181D23] border border-[#232B35] flex items-center justify-center text-[#F5B942] group-hover:border-[#F5B942]/50 transition-colors">
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 rounded-md bg-[var(--bg-subtle)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--border-accent)] transition-colors duration-200">
               <Scale className="w-4 h-4" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-[#F4F5F7] group-hover:text-[#F5B942] transition-colors">
+            <div className="flex flex-col leading-none">
+              <span className="text-[15px] font-bold tracking-tight text-[var(--text-high)] group-hover:text-[var(--accent)] transition-colors duration-200">
                 FORA DA CURVA
               </span>
-              <span className="text-[10px] uppercase tracking-wider text-[#A8AFB8] font-mono">
+              <span className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-mono mt-0.5">
                 Transparência Pública
               </span>
             </div>
           </Link>
-          
-          <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-[#1B2129]">
+
+          <nav className="hidden md:flex items-center gap-0.5 pl-5 border-l border-[var(--border-muted)]">
             <Link
               href="/ranking"
-              className="px-3 py-1.5 text-sm font-medium text-[#A8AFB8] hover:text-[#F4F5F7] hover:bg-[#11151A] rounded-md transition-colors"
+              className="px-3 py-1.5 text-sm font-medium text-[var(--text-medium)] hover:text-[var(--text-high)] hover:bg-[var(--bg-card)] rounded-md transition-colors duration-150"
             >
               Ranking dos Maiores
             </Link>
             <Link
               href="/metodologia"
-              className="px-3 py-1.5 text-sm font-medium text-[#A8AFB8] hover:text-[#F4F5F7] hover:bg-[#11151A] rounded-md transition-colors"
+              className="px-3 py-1.5 text-sm font-medium text-[var(--text-medium)] hover:text-[var(--text-high)] hover:bg-[var(--bg-card)] rounded-md transition-colors duration-150"
             >
               Metodologia & Fontes
             </Link>
           </nav>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <div className="hidden sm:flex items-center space-x-2 text-xs font-mono text-[#6C7480] bg-[#11151A] px-3 py-1.5 rounded-full border border-[#1B2129]">
-            <span className="w-2 h-2 rounded-full bg-[#58C4A3] inline-block"></span>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-[var(--text-muted)] bg-[var(--bg-card)] px-3 py-1.5 rounded-full border border-[var(--border-muted)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--status-regular)]" />
             <span>Setembro/2026 auditado</span>
           </div>
-          
+
           <Link
             href="/ranking"
-            className="inline-flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 rounded-md bg-[#F5B942] text-[#0B0D10] hover:bg-[#e4aa34] transition-colors"
+            className="btn-primary !py-1.5 !px-3 !text-xs"
           >
             <span>Ver Ranking</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
