@@ -31,7 +31,9 @@ flowchart TD
 - **Jornalistas e Pesquisadores:** Que necessitam de fontes auditáveis, links diretos para os órgãos oficiais e metodologia clara.
 - **Órgãos de Controle e Gestores Públicos:** Que se beneficiam de uma ferramenta comparativa de distorções estruturais e verbas indenizatórias.
 
-## 5. Concepção, Autoria & Reconhecimento
-- **Engenharia e Arquitetura de Software:** **Willian Albarello**
-- **Faísca Criativa & Honra:** Projeto concebido a partir de um insight e diálogo com o primo de Willian Albarello, que compartilhou o caso das anomalias salariais e inspirou a estruturação de uma ferramenta cívica neutra, analítica e sem sensacionalismo.
+## 5. Autoria e Co-autoria Científico-Técnica
+
+- **Willian Albarello** ([@walbarellos](https://instagram.com/walbarellos)) — Engenheiro e Arquiteto de Software, Responsável pela Arquitetura, Modelagem de Dados e Engenharia da Plataforma.
+- **Wenrrison Nogueira** ([@nswenrrisonchris](https://instagram.com/nswenrrisonchris)) — Co-autor, Responsável pela Concepção Teórico-Conceitual e Formulação da Problemática de Transparência Pública.
+
 

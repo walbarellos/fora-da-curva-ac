@@ -76,8 +76,14 @@ Consulte a página [`/metodologia`](./docs/04-metodologia-dados.md) para detalhe
 
 ---
 
-## 👥 Créditos & Concepção
+## 👥 Autoria & Co-autoria
 
-- **Engenharia & Arquitetura de Software:** **Willian Albarello**
-- **Inspiração e Concepção Original:** Dedicatória e honra ao **meu primo**, cujo olhar atento e reflexão sobre essas distorções trouxeram a centelha inicial para transformar essa discussão em uma plataforma pública, aberta e rigorosa.
+- **Willian Albarello** ([@walbarellos](https://instagram.com/walbarellos)) — Engenharia & Arquitetura de Software, Modelagem de Dados e Implementação.
+- **Wenrrison Nogueira** ([@nswenrrisonchris](https://instagram.com/nswenrrisonchris)) — Concepção Conceitual, Formulação da Problemática e Co-autor.
+
+### Como Citar (ABNT)
+```text
+ALBARELLO, Willian; NOGUEIRA, Wenrrison. Fora da Curva: Plataforma de Transparência e Análise de Remunerações Atípicas no Setor Público Brasileiro. 2026.
+```
+
 

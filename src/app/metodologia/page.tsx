@@ -115,31 +115,69 @@ export default function MetodologiaPage() {
         </div>
       </section>
 
-      {/* 5. Autoria & Concepção do Projeto */}
+      {/* 5. Autoria, Co-autoria e Citação Acadêmica */}
       <section className="space-y-4 pt-6 border-t border-[#181D23]">
         <h2 className="text-xl font-bold text-[#F4F5F7] flex items-center gap-2">
           <UserCheck className="w-5 h-5 text-[#F5B942]" />
-          5. Concepção & Engenharia
+          5. Autoria & Co-autoria Técnico-Científica
         </h2>
-        <div className="p-6 rounded-xl bg-[#11151A] border border-[#1B2129] space-y-4">
-          <div className="space-y-1">
-            <h3 className="text-base font-bold text-[#F4F5F7]">
-              Willian Albarello
-            </h3>
-            <p className="text-xs font-mono text-[#F5B942]">
-              Engenharia & Arquitetura de Software
-            </p>
+        <div className="p-6 rounded-xl bg-[#11151A] border border-[#1B2129] space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Willian */}
+            <div className="p-4 rounded-lg bg-[#181D23] border border-[#232B35] space-y-2">
+              <div className="flex items-baseline justify-between">
+                <h3 className="text-base font-bold text-[#F4F5F7]">
+                  Willian Albarello
+                </h3>
+                <a
+                  href="https://instagram.com/walbarellos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono text-[#F5B942] hover:underline"
+                >
+                  @walbarellos
+                </a>
+              </div>
+              <p className="text-xs font-mono text-[#58C4A3]">
+                Engenharia & Arquitetura de Software
+              </p>
+              <p className="text-xs text-[#A8AFB8] leading-relaxed">
+                Responsável pelo design arquitetural, modelagem de dados, implementação do pipeline e engenharia de software da plataforma.
+              </p>
+            </div>
+
+            {/* Wenrrison */}
+            <div className="p-4 rounded-lg bg-[#181D23] border border-[#232B35] space-y-2">
+              <div className="flex items-baseline justify-between">
+                <h3 className="text-base font-bold text-[#F4F5F7]">
+                  Wenrrison Nogueira
+                </h3>
+                <a
+                  href="https://instagram.com/nswenrrisonchris"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono text-[#F5B942] hover:underline"
+                >
+                  @nswenrrisonchris
+                </a>
+              </div>
+              <p className="text-xs font-mono text-[#F5B942]">
+                Concepção Conceitual & Co-autor
+              </p>
+              <p className="text-xs text-[#A8AFB8] leading-relaxed">
+                Responsável pela concepção conceitual, formulação da problemática de análise das folhas e co-autoria do projeto.
+              </p>
+            </div>
           </div>
-          <p className="text-sm text-[#A8AFB8] leading-relaxed">
-            Plataforma idealizada e desenvolvida com foco em inteligência cívica, rigor metodológico e visualização acessível de dados públicos.
-          </p>
-          <div className="p-4 rounded-lg bg-[#181D23] border border-[#232B35] text-xs text-[#A8AFB8] space-y-1">
-            <span className="font-semibold text-[#F4F5F7] block">
-              Dedicatória e Reconhecimento Especial
+
+          {/* Citação Acadêmica ABNT */}
+          <div className="p-4 rounded-lg bg-[#0B0D10] border border-[#181D23] space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-[#6C7480] block">
+              Referência Acadêmica Recomendada (ABNT)
             </span>
-            <p className="leading-relaxed">
-              O projeto nasceu a partir de um diálogo direto com meu primo, que compartilhou o caso das disparidades nas folhas salariais e apontou a ausência de um instrumento que explicasse a realidade por trás dos números. A ele, minha gratidão e honra pela centelha que originou o <strong>Fora da Curva</strong>.
-            </p>
+            <code className="text-xs font-mono text-[#F4F5F7] block bg-[#11151A] p-3 rounded border border-[#232B35] select-all leading-relaxed">
+              ALBARELLO, Willian; NOGUEIRA, Wenrrison. Fora da Curva: Plataforma de Transparência e Análise de Remunerações Atípicas no Setor Público Brasileiro. 2026. Disponível em: &lt;https://github.com/walbarellos/fora-da-curva&gt;.
+            </code>
           </div>
         </div>
       </section>

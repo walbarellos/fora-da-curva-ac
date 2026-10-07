@@ -66,19 +66,40 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bloco de Créditos & Concepção */}
+        {/* Bloco Acadêmico de Autoria & Co-autoria */}
         <div className="py-6 border-t border-[#181D23] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-[#A8AFB8]">
-            <span className="font-medium text-[#F4F5F7]">
-              Engenharia & Arquitetura de Software: <span className="text-[#F5B942]">Willian Albarello</span>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#A8AFB8]">
+            <span className="font-semibold text-[#F4F5F7]">
+              Autoria & Pesquisa:
+            </span>
+            <span>
+              <strong className="text-[#F4F5F7]">Willian Albarello</strong>{' '}
+              <a
+                href="https://instagram.com/walbarellos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#F5B942] hover:underline font-mono"
+              >
+                @walbarellos
+              </a>{' '}
+              <span className="text-[#6C7480]">(Engenharia & Arquitetura)</span>
             </span>
             <span className="hidden sm:inline text-[#6C7480]">•</span>
-            <span className="text-[#A8AFB8] italic">
-              Concebido em honra ao meu primo, cuja provocação inicial gerou a criação desta plataforma.
+            <span>
+              <strong className="text-[#F4F5F7]">Wenrrison Nogueira</strong>{' '}
+              <a
+                href="https://instagram.com/nswenrrisonchris"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#F5B942] hover:underline font-mono"
+              >
+                @nswenrrisonchris
+              </a>{' '}
+              <span className="text-[#6C7480]">(Co-autor & Concepção)</span>
             </span>
           </div>
           <div className="text-[11px] font-mono text-[#6C7480]">
-            Transparência cívica com propósito
+            Pesquisa & Engenharia de Dados Abertos
           </div>
         </div>
 
