@@ -3,13 +3,11 @@ import {
   getEstatisticas,
   getAllPagamentos,
   getServentias,
-  getRankingUnificado,
   formatCurrency,
   formatCompactCurrency,
   formatNumber,
 } from '@/lib/data';
-import ComparadorEscala from '@/components/ComparadorEscala';
-import { ArrowUpRight, ArrowRight, ShieldCheck, Layers, BarChart3, Info, FileText } from 'lucide-react';
+import { ArrowRight, Info, FileText } from 'lucide-react';
 
 export default function HomePage() {
   const stats = getEstatisticas();
@@ -17,358 +15,292 @@ export default function HomePage() {
   const topRecord = todos[0];
   const topFive = todos.slice(0, 5);
   const serv = getServentias();
-  const unificado = getRankingUnificado();
+  const topServ = (serv.ranking as Array<{ serventia: string; total: number }>).slice(0, 5);
 
-  // Totais do ranking unificado (≥ R$ 500 mil)
-  const totalUnificado = unificado.reduce((s, r) => s + r.valor, 0);
-  const totalFolhaAcima500k = unificado
-    .filter((r) => r.tipo === 'Folha pública')
-    .reduce((s, r) => s + r.valor, 0);
-  const qtdFolhaAcima500k = unificado.filter((r) => r.tipo === 'Folha pública').length;
-  const totalServentiasAcima500k = unificado
-    .filter((r) => r.tipo === 'Serventia extrajudicial')
-    .reduce((s, r) => s + r.valor, 0);
-  const qtdServentiasAcima500k = unificado.filter(
-    (r) => r.tipo === 'Serventia extrajudicial'
-  ).length;
+  const basica = topRecord.remuneracaoBasica;
+  const retroativos = topRecord.retroativos;
+  const indenizacoes = topRecord.indenizacoes;
+  const restanteEventual = topRecord.valorBruto - basica;
+  const pctBasica = ((basica / topRecord.valorBruto) * 100).toFixed(1);
+  const pctRetro = ((retroativos / topRecord.valorBruto) * 100).toFixed(1);
+  const pctInden = ((indenizacoes / topRecord.valorBruto) * 100).toFixed(1);
 
-  // Mini-rankings para os dois trilhos
-  const topFolha = todos.filter((p) => p.valorBruto >= 500_000).slice(0, 3);
-  const topServ = (serv.ranking as Array<{ serventia: string; total: number }>).slice(0, 3);
+  const multiploSM =
+    topRecord.comparativos?.multiploSalarioMinimo ??
+    Math.round(topRecord.valorBruto / 1621);
+  const anosRenda =
+    topRecord.comparativos?.anosRendaMedia ??
+    Number((topRecord.valorBruto / (2450 * 12)).toFixed(1));
+  const smRef = topRecord.comparativos?.salarioMinimoReferencia ?? 1621;
+  const qtdAC = todos.filter((r) => r.uf === 'AC').length;
 
   return (
-    <div className="space-y-16 pb-20">
-      {/* ─────────────────────────────────────────────
-          1. HERO — total agregado acima de R$ 500 mil
-          ───────────────────────────────────────────── */}
-      <section className="relative pt-14 pb-16 border-b border-[var(--border-muted)]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-medium)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-            <span>
-              Competência {stats.periodoReferencia} · Fontes oficiais auditadas
-            </span>
-          </div>
+    <div className="pb-20">
+      {/* 1. FATO — maior pagamento documentado */}
+      <section className="border-b border-[var(--border-muted)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12 space-y-6">
+          <p className="text-xs font-mono text-[var(--text-muted)] tracking-wide uppercase">
+            Competência {stats.periodoReferencia} · Fonte oficial
+          </p>
 
-          <div className="space-y-2">
-            <p className="font-label">
-              Soma dos pagamentos e arrecadações acima de R$&nbsp;500&nbsp;mil
-            </p>
-            <h1 className="hero-number text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--text-high)] tabular-nums tracking-tighter font-mono">
-              {formatCurrency(totalUnificado)}
+          <div className="space-y-3">
+            <h1 className="text-sm font-medium text-[var(--text-medium)] leading-snug">
+              Maior pagamento individual registrado nesta edição
             </h1>
-            <p className="text-sm sm:text-base text-[var(--text-medium)] max-w-2xl mx-auto leading-relaxed">
-              Valores registrados em tribunais, Ministérios Públicos, cartórios e
-              demais órgãos analisados no período — folha pública e emolumentos
-              de serventias extrajudiciais.
+            <p className="text-4xl sm:text-5xl md:text-6xl font-bold text-[var(--text-high)] tabular-nums tracking-tighter font-mono leading-none">
+              {formatCurrency(topRecord.valorBruto)}
+            </p>
+            <p className="text-base text-[var(--text-high)]">
+              {topRecord.cargo} · {topRecord.orgao} ({topRecord.orgaoSigla})
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <Link href="/ranking" className="btn-primary w-full sm:w-auto">
-              <span>Ranking da folha pública</span>
+          <div className="border border-[var(--border-muted)] rounded-lg divide-y divide-[var(--border-muted)] text-sm">
+            <div className="flex justify-between gap-4 px-4 py-3">
+              <span className="text-[var(--text-medium)]">Remuneração básica (subsídio)</span>
+              <span className="font-mono tabular-nums text-[var(--text-high)] shrink-0">
+                {formatCurrency(basica)}
+                <span className="text-[var(--text-muted)] ml-2 text-xs">{pctBasica}%</span>
+              </span>
+            </div>
+            <div className="flex justify-between gap-4 px-4 py-3">
+              <span className="text-[var(--text-medium)]">Retroativos</span>
+              <span className="font-mono tabular-nums text-[var(--text-high)] shrink-0">
+                {formatCurrency(retroativos)}
+                <span className="text-[var(--text-muted)] ml-2 text-xs">{pctRetro}%</span>
+              </span>
+            </div>
+            <div className="flex justify-between gap-4 px-4 py-3">
+              <span className="text-[var(--text-medium)]">Indenizações</span>
+              <span className="font-mono tabular-nums text-[var(--text-high)] shrink-0">
+                {formatCurrency(indenizacoes)}
+                <span className="text-[var(--text-muted)] ml-2 text-xs">{pctInden}%</span>
+              </span>
+            </div>
+            <div className="flex justify-between gap-4 px-4 py-3 bg-[var(--bg-subtle)]/50">
+              <span className="text-[var(--text-medium)]">
+                Após descontos obrigatórios → líquido
+              </span>
+              <span className="font-mono tabular-nums text-[var(--text-high)] shrink-0">
+                {formatCurrency(topRecord.valorLiquido)}
+              </span>
+            </div>
+          </div>
+
+          <p className="text-sm text-[var(--text-medium)] leading-relaxed">
+            A remuneração básica do cargo é {formatCurrency(basica)}. O restante —{' '}
+            {formatCurrency(restanteEventual)} — corresponde a retroativos e indenizações
+            quitados nesta competência, não ao vencimento mensal recorrente.
+          </p>
+
+          <div className="flex flex-wrap gap-3 pt-1">
+            <Link href={`/pagamento/${topRecord.id}`} className="btn-primary">
+              <span>Ver decomposição completa</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/cartorios" className="btn-secondary w-full sm:w-auto">
-              <span>Serventias extrajudiciais</span>
-              <ArrowUpRight className="w-4 h-4" />
+            <Link href="/ranking" className="btn-secondary">
+              <span>Os 100 maiores</span>
             </Link>
           </div>
+        </div>
+      </section>
 
-          <p className="text-xs text-[var(--text-muted)] max-w-lg mx-auto flex items-start justify-center gap-2 pt-1">
-            <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-            <span>
-              O total agrega apenas registros ≥ R$&nbsp;500&nbsp;mil. Não representa
-              a remuneração mensal típica de qualquer cargo.
-            </span>
+      {/* 2. ESCALA */}
+      <section className="border-b border-[var(--border-muted)] bg-[var(--bg-elevated)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+          <h2 className="text-lg font-bold text-[var(--text-high)] tracking-tight">
+            Em escala
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <p className="text-3xl sm:text-4xl font-bold text-[var(--accent)] tabular-nums font-mono tracking-tight">
+                {formatNumber(multiploSM)}
+              </p>
+              <p className="text-sm text-[var(--text-medium)] leading-relaxed">
+                salários mínimos nacionais (R$&nbsp;{formatNumber(smRef)}) cabem neste
+                único contracheque.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-3xl sm:text-4xl font-bold text-[var(--text-high)] tabular-nums font-mono tracking-tight">
+                {anosRenda} anos
+              </p>
+              <p className="text-sm text-[var(--text-medium)] leading-relaxed">
+                de renda média no Acre (R$&nbsp;2.450/mês) seriam necessários para
+                igualar o mesmo valor — sem gastar nada.
+              </p>
+            </div>
+          </div>
+
+          <p className="text-sm text-[var(--text-medium)] leading-relaxed border-l-2 border-[var(--border-strong)] pl-4">
+            Enquanto isso, milhões de brasileiros dependem de um salário mínimo para
+            moradia, alimentação, saúde e educação. O contraste não é opinião: é
+            aritmética sobre dados oficiais de transparência.
           </p>
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────
-          2. COMPARADOR DE ESCALA (imediato)
-          ───────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ComparadorEscala
-          valorPagamento={topRecord.valorBruto}
-          cargoExemplo={topRecord.cargo}
-          orgaoExemplo={topRecord.orgaoSigla}
-        />
+      {/* 3. ESCOPO */}
+      <section className="border-b border-[var(--border-muted)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex gap-3 text-sm text-[var(--text-medium)] leading-relaxed">
+            <Info className="w-4 h-4 shrink-0 mt-0.5 text-[var(--text-muted)]" />
+            <div className="space-y-2">
+              <p>
+                <strong className="text-[var(--text-high)]">Escopo desta edição.</strong>{' '}
+                A folha reúne os 100 maiores pagamentos identificados em órgãos
+                selecionados (competência {stats.periodoReferencia}). O Acre está
+                sobrerrepresentado na amostra ({qtdAC} dos {todos.length} registros).
+                Não é o total nacional do setor público.
+              </p>
+              <p>
+                As serventias extrajudiciais cobrem as {serv.qtdServentias} unidades do
+                Acre (emolumentos, jan–ago/{serv.ano}), fiscalizadas pelo TJAC. Cartórios
+                não integram a folha de servidores: a arrecadação vem do cidadão, ato a ato.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* ─────────────────────────────────────────────
-          3. DOIS TRILHOS — Folha Pública × Serventias
-          ───────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-high)] tracking-tight">
-              Dois circuitos de recursos públicos
+      {/* 4. SERVENTIAS */}
+      <section className="border-b border-[var(--border-muted)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-6">
+          <div className="space-y-2">
+            <h2 className="text-lg font-bold text-[var(--text-high)] tracking-tight">
+              Serventias extrajudiciais — Acre
             </h2>
-            <p className="text-sm text-[var(--text-medium)] mt-1 max-w-2xl">
-              A tese editorial: a folha de pagamento e a arrecadação cartorária
-              operam em escalas distintas, ambas com concentrações acima de
-              R$&nbsp;500&nbsp;mil.
+            <p className="text-sm text-[var(--text-medium)] leading-relaxed">
+              Em oito meses de {serv.ano}, as {serv.qtdServentias} serventias do estado
+              arrecadaram{' '}
+              <strong className="text-[var(--text-high)] tabular-nums">
+                {formatCurrency(serv.totalArrecadado)}
+              </strong>{' '}
+              em emolumentos. {serv.serventiasAcima500k} delas ultrapassaram R$&nbsp;500&nbsp;mil.
             </p>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Trilho Folha */}
-          <div className="card p-6 sm:p-7 space-y-5">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <span className="font-label">Folha pública</span>
-                <div className="text-2xl sm:text-3xl font-bold text-[var(--text-high)] tabular-nums font-mono mt-1">
-                  {formatCompactCurrency(totalFolhaAcima500k)}
-                </div>
-                <p className="text-xs text-[var(--text-medium)] mt-1">
-                  {qtdFolhaAcima500k} pagamentos ≥ R$&nbsp;500&nbsp;mil · competência{' '}
-                  {stats.periodoReferencia}
-                </p>
-              </div>
-              <Link
-                href="/ranking"
-                className="text-xs font-semibold text-[var(--accent)] hover:underline flex items-center gap-1 shrink-0"
+          <ol className="border border-[var(--border-muted)] rounded-lg divide-y divide-[var(--border-muted)]">
+            {topServ.map((item, idx) => (
+              <li
+                key={item.serventia}
+                className="flex items-baseline justify-between gap-4 px-4 py-3 text-sm"
               >
-                Ranking
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+                <span className="text-[var(--text-muted)] font-mono text-xs w-5 shrink-0">
+                  {idx + 1}
+                </span>
+                <span className="text-[var(--text-high)] flex-1 min-w-0 truncate">
+                  {item.serventia}
+                </span>
+                <span className="font-mono tabular-nums text-[var(--text-high)] shrink-0">
+                  {formatCurrency(item.total)}
+                </span>
+              </li>
+            ))}
+          </ol>
 
-            <ul className="space-y-2.5 border-t border-[var(--border-muted)] pt-4">
-              {topFolha.map((item) => (
-                <li key={item.id}>
-                  <Link
-                    href={`/pagamento/${item.id}`}
-                    className="flex items-center justify-between gap-3 group"
-                  >
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-[var(--text-high)] group-hover:text-[var(--accent)] transition-colors truncate">
-                        {item.cargo}
-                      </p>
-                      <p className="text-[11px] text-[var(--text-muted)] font-mono">
-                        {item.orgaoSigla} · {item.fatorPredominante}
-                      </p>
-                    </div>
-                    <span className="text-sm font-mono tabular-nums text-[var(--text-high)] shrink-0">
-                      {formatCompactCurrency(item.valorBruto)}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Trilho Serventias */}
-          <div className="card p-6 sm:p-7 space-y-5">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <span className="font-label">Serventias extrajudiciais</span>
-                <div className="text-2xl sm:text-3xl font-bold text-[var(--text-high)] tabular-nums font-mono mt-1">
-                  {formatCompactCurrency(serv.totalArrecadado)}
-                </div>
-                <p className="text-xs text-[var(--text-medium)] mt-1">
-                  {serv.qtdServentias} serventias · exercício {serv.ano} (jan–ago) ·{' '}
-                  {qtdServentiasAcima500k} acima de R$&nbsp;500&nbsp;mil
-                </p>
-              </div>
-              <Link
-                href="/cartorios"
-                className="text-xs font-semibold text-[var(--accent)] hover:underline flex items-center gap-1 shrink-0"
-              >
-                Ranking
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-
-            <ul className="space-y-2.5 border-t border-[var(--border-muted)] pt-4">
-              {topServ.map((item, idx) => (
-                <li key={item.serventia} className="flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-[var(--text-high)] truncate">
-                      {item.serventia}
-                    </p>
-                    <p className="text-[11px] text-[var(--text-muted)] font-mono">
-                      #{idx + 1} · emolumentos
-                    </p>
-                  </div>
-                  <span className="text-sm font-mono tabular-nums text-[var(--text-high)] shrink-0">
-                    {formatCompactCurrency(item.total)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────
-          4. INDICADORES SINTÉTICOS
-          ───────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <div className="card p-5 space-y-1.5">
-            <span className="font-label">Maior pagamento individual</span>
-            <div className="text-2xl sm:text-3xl font-bold text-[var(--accent)] tabular-nums font-mono">
-              {formatCompactCurrency(stats.maiorPagamento)}
-            </div>
-            <p className="text-[11px] text-[var(--text-medium)]">
-              {topRecord.orgaoSigla} · {topRecord.competencia}
-            </p>
-          </div>
-
-          <div className="card p-5 space-y-1.5">
-            <span className="font-label">Média dos 100 maiores</span>
-            <div className="text-2xl sm:text-3xl font-bold text-[var(--text-high)] tabular-nums font-mono">
-              {formatCompactCurrency(stats.mediaTop100)}
-            </div>
-            <p className="text-[11px] text-[var(--text-medium)]">Remuneração bruta média</p>
-          </div>
-
-          <div className="card p-5 space-y-1.5">
-            <span className="font-label">Órgãos analisados</span>
-            <div className="text-2xl sm:text-3xl font-bold text-[var(--status-regular)] tabular-nums font-mono">
-              {stats.totalOrgaosAnalisados}
-            </div>
-            <p className="text-[11px] text-[var(--text-medium)]">
-              Tribunais, MPs e secretarias
-            </p>
-          </div>
-
-          <div className="card p-5 space-y-1.5">
-            <span className="font-label">Contracheques processados</span>
-            <div className="text-2xl sm:text-3xl font-bold text-[var(--text-high)] tabular-nums font-mono">
-              {formatNumber(stats.totalPagamentosAnalisados)}
-            </div>
-            <p className="text-[11px] text-[var(--text-medium)]">Base consolidada</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────
-          5. TOP 5 CASOS ATÍPICOS
-          ───────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-bold text-[var(--text-high)] tracking-tight">
-              Cinco casos mais atípicos do período
-            </h2>
-            <p className="text-sm text-[var(--text-medium)] mt-1">
-              Valores impulsionados predominantemente por indenizações e
-              quitações pretéritas, não pela remuneração básica recorrente.
-            </p>
-          </div>
           <Link
-            href="/ranking"
-            className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)] hover:underline"
+            href="/cartorios"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)] hover:underline"
           >
-            <span>Ver os 100 maiores</span>
+            Ranking completo das {serv.qtdServentias} serventias
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
-          {topFive.map((item) => (
-            <Link
-              key={item.id}
-              href={`/pagamento/${item.id}`}
-              className="card hover-lift p-4 flex flex-col justify-between group space-y-3"
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs font-mono text-[var(--text-muted)] mb-2">
-                  <span>#{item.posicaoRanking}</span>
-                  <span className="chip !py-0.5 !px-1.5 !text-[10px]">
-                    {item.orgaoSigla}
-                  </span>
-                </div>
-                <h3 className="text-xs font-semibold text-[var(--text-high)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
-                  {item.cargo}
-                </h3>
-                <p className="text-[11px] text-[var(--text-medium)] mt-0.5">
-                  {item.uf} · {item.poder}
-                </p>
-              </div>
-
-              <div className="pt-2 border-t border-[var(--border-muted)]">
-                <div className="text-sm font-bold text-[var(--text-high)] tabular-nums font-mono">
-                  {formatCurrency(item.valorBruto)}
-                </div>
-                <span className="text-[10px] font-mono text-[var(--accent)]">
-                  {item.fatorPredominante}
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
       </section>
 
-      {/* ─────────────────────────────────────────────
-          6. COMPROMISSO METODOLÓGICO
-          ───────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="card-elevated p-7 sm:p-9 space-y-7">
-          <div className="max-w-3xl space-y-3">
-            <span className="font-label text-[var(--status-regular)]">
-              Compromisso institucional
-            </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-high)] tracking-tight">
-              Transparência com contexto, não indignação vazia
+      {/* 5. CINCO CASOS DA FOLHA */}
+      <section className="border-b border-[var(--border-muted)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-6">
+          <div className="space-y-2">
+            <h2 className="text-lg font-bold text-[var(--text-high)] tracking-tight">
+              Cinco maiores da folha nesta competência
             </h2>
-            <p className="text-sm text-[var(--text-medium)] leading-relaxed">
-              O <strong className="text-[var(--text-high)]">Fora da Curva</strong> não
-              transforma folhas de pagamento em manchete. Cada registro é
-              decomposto em remuneração básica, vantagens, indenizações e
-              retroativos; o histórico de 12 meses permite distinguir pico isolado
-              de padrão recorrente. As fontes são portais oficiais de transparência,
-              com link e data de coleta.
+            <p className="text-sm text-[var(--text-medium)]">
+              Valores brutos. O fator predominante indica a rubrica que mais pesou
+              no total.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 border-t border-[var(--border-muted)]">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-semibold text-[var(--text-high)]">
-                <Layers className="w-4 h-4 text-[var(--accent)]" />
-                <span>Decomposição de verbas</span>
-              </div>
-              <p className="text-xs text-[var(--text-medium)] leading-relaxed">
-                Cada rubrica é identificada: o que integra a remuneração permanente
-                e o que são verbas indenizatórias ou passivos pretéritos.
-              </p>
-            </div>
+          <ol className="border border-[var(--border-muted)] rounded-lg divide-y divide-[var(--border-muted)]">
+            {topFive.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={`/pagamento/${item.id}`}
+                  className="flex items-baseline justify-between gap-4 px-4 py-3 text-sm group hover:bg-[var(--bg-subtle)]/40 transition-colors"
+                >
+                  <span className="text-[var(--text-muted)] font-mono text-xs w-5 shrink-0">
+                    {item.posicaoRanking}
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="text-[var(--text-high)] group-hover:text-[var(--accent)] transition-colors">
+                      {item.cargo}
+                    </span>
+                    <span className="text-[var(--text-muted)] text-xs font-mono ml-2">
+                      {item.orgaoSigla} · {item.fatorPredominante}
+                    </span>
+                  </span>
+                  <span className="font-mono tabular-nums text-[var(--text-high)] shrink-0">
+                    {formatCurrency(item.valorBruto)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-semibold text-[var(--text-high)]">
-                <BarChart3 className="w-4 h-4 text-[var(--status-regular)]" />
-                <span>Série temporal</span>
-              </div>
-              <p className="text-xs text-[var(--text-medium)] leading-relaxed">
-                Os 12 meses anteriores ao registro permitem avaliar se o valor é
-                excepcional ou recorrente.
-              </p>
-            </div>
+          <Link
+            href="/ranking"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)] hover:underline"
+          >
+            Ver os 100 maiores pagamentos
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </section>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-semibold text-[var(--text-high)]">
-                <ShieldCheck className="w-4 h-4 text-[var(--accent)]" />
-                <span>Fonte auditável</span>
-              </div>
-              <p className="text-xs text-[var(--text-medium)] leading-relaxed">
-                Cada pagamento traz link ao portal de origem, data de coleta e
-                referência metodológica.
+      {/* 6. INDICADORES + MÉTODO */}
+      <section>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center sm:text-left">
+            <div>
+              <p className="text-xl font-bold tabular-nums font-mono text-[var(--text-high)]">
+                {formatCompactCurrency(stats.mediaTop100)}
               </p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Média dos 100 maiores</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold tabular-nums font-mono text-[var(--text-high)]">
+                {stats.totalOrgaosAnalisados}
+              </p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Órgãos nesta amostra</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold tabular-nums font-mono text-[var(--text-high)]">
+                {formatNumber(stats.totalPagamentosAnalisados)}
+              </p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Contracheques processados</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold tabular-nums font-mono text-[var(--text-high)]">
+                {serv.qtdServentias}
+              </p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Serventias (AC)</p>
             </div>
           </div>
 
-          <div className="pt-2">
+          <div className="border-t border-[var(--border-muted)] pt-8 space-y-3">
+            <p className="text-sm text-[var(--text-medium)] leading-relaxed">
+              Cada registro decompõe remuneração básica, vantagens, indenizações e
+              retroativos; a série de 12 meses mostra se o valor é pico ou padrão.
+              Fontes: portais oficiais de transparência e LAI.
+            </p>
             <Link
               href="/metodologia"
               className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] hover:underline"
             >
               <FileText className="w-4 h-4" />
-              <span>Metodologia, fontes e limitações</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              Metodologia, fontes e limitações
             </Link>
           </div>
         </div>
